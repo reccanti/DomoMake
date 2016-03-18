@@ -40,6 +40,36 @@ var login = function(req, res) {
  */
 var signup = function(req, res) {
     
+    
+    /** 
+     *  perform validation on the inputs
+     */
+    if (!req.body.username || !req.body.pass || !req.body.pass2) {
+        return res.status(400).json({error: "RAWR! All fields are required"});
+    }
+    if (req.body.pass !== req.body.pass2) {
+        return res.status(400).json({error: "RAWR! Passwords do not match"});
+    }
+    
+    /**
+     * Create a new account by generating a hash & salt value from the 
+     * password, then save it to the database.
+     */
+    Account.AccountModel.generateHash(req.body.pass, function (salt, hash) {   
+       var accountData = {
+           username: req.body.username,
+           salt: salt,
+           password: hash
+       };
+       var newAccount = new Account.AccountModel(accountData);
+       newAccount.save(function(err) {
+          if (err) {
+              console.error(error);
+              return res.status(400).json({error: "an error occurred"});
+          } 
+          res.json({redirect: "/maker"});
+       });
+    });
 };
 
 
