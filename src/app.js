@@ -5,7 +5,7 @@ var favicon = require("serve-favicon");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-
+var session = require("express-session");
 
 /**
  * Connect to the Database using mongoose. Throw an error if a 
@@ -41,6 +41,12 @@ app.use("/assets", express.static(path.resolve(__dirname + "/../client/")));
 app.use(compression());
 app.use(bodyParser.urlencoded({
     extended: true
+}));
+app.use(session({
+    key: "sessionid",
+    secret: "Domo Arigato",
+    resave: true,
+    saveUninitialized: true
 }));
 app.set('view engine', 'jade');
 app.set('views', path.resolve(__dirname + "/views"));
