@@ -32,6 +32,27 @@ var logout = function(req, res) {
  */
 var login = function(req, res) {
     
+    
+    /**
+     *  perform validation on the inputs
+     */
+    if (!req.body.username || !req.body.pass) {
+        res.status(400).json({error: "RAWR! All fields are required"});
+    }
+    
+    
+    /**
+     * Attempt to authenticate the user, and if successful, redirect 
+     * to the maker page
+     */
+    Account.AccountModel.authenticate(req.body.username, req.body.pass, function(err, account) {
+        if (err || !account) {
+            return res.status(401).json({error: "wrong username or password"});
+        }
+        res.json({redirect: "/maker"});
+    });
+    
+    
 };
 
 
@@ -50,6 +71,7 @@ var signup = function(req, res) {
     if (req.body.pass !== req.body.pass2) {
         return res.status(400).json({error: "RAWR! Passwords do not match"});
     }
+    
     
     /**
      * Create a new account by generating a hash & salt value from the 
@@ -70,6 +92,8 @@ var signup = function(req, res) {
           res.json({redirect: "/maker"});
        });
     });
+    
+    
 };
 
 

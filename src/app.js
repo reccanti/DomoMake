@@ -35,10 +35,9 @@ var port = process.env.PORT || process.env.NODE_PORT || 3000;
 /**
  * Set up the Express server
  */
-console.log(path.resolve(__dirname + "../../client/"));
 
 var app = express();
-app.use("/assets", express.static(path.resolve(__dirname + "../../client/")));
+app.use("/assets", express.static(path.resolve(__dirname + "/../client/")));
 app.use(compression());
 app.use(bodyParser.urlencoded({
     extended: true
