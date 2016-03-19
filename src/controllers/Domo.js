@@ -7,7 +7,13 @@ var Domo = models.Domo;
  * This function renders the maker page
  */
 var makerPage = function(req, res) {
-    res.render('app');
+    Domo.DomoModel.findByOwner(req.session.account._id, function(err, docs) {
+        if (err) {
+           console.error(err);
+           return res.status(400).json({error: "An error occurred"}); 
+        }
+        res.render('app', {domos: docs});
+    });
 };
 
 
