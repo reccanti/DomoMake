@@ -6,6 +6,9 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var session = require("express-session");
+var RedisStore = require("connect-redis")(session);
+var url = require("url");
+
 
 /**
  * Connect to the Database using mongoose. Throw an error if a 
@@ -18,6 +21,20 @@ var db = mongoose.connect(dbURL, function(err) {
         throw err;
     }
 });
+
+
+/**
+ * Set the Redis URL
+ */
+var redisURL = {
+    hostname: 'localhost',
+    port: 6379
+};
+var redisPASS;
+if (process.env.REDISCLOUD_URL) {
+    redisURL = url.parse(process.env.REDISCLOUD_URL);
+    redisPASS = redisURL.auth.split(":")[1];
+}
 
 
 /**
@@ -35,7 +52,6 @@ var port = process.env.PORT || process.env.NODE_PORT || 3000;
 /**
  * Set up the Express server
  */
-
 var app = express();
 app.use("/assets", express.static(path.resolve(__dirname + "/../client/")));
 app.use(compression());
@@ -44,6 +60,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(session({
     key: "sessionid",
+    store: new RedisStore({
+        host: redisURL.hostname,
+        port: redisURL.port,
+        pass: redisPASS
+    }),
     secret: "Domo Arigato",
     resave: true,
     saveUninitialized: true
