@@ -6,7 +6,7 @@ var Account = models.Account;
  * This function renders the login page view
  */
 var loginPage = function (req, res) {
-    res.render("login");
+    res.render("login", { csrfToken: req.csrfToken() });
 };
 
 
@@ -14,7 +14,7 @@ var loginPage = function (req, res) {
  * This function renders the signup page view
  */
 var signupPage = function (req, res) {
-    res.render("signup");
+    res.render("signup", { csrfToken: req.csrfToken() });
 };
 
 
