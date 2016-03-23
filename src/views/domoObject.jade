@@ -1,0 +1,8 @@
+mixin EditableDomo(domo)
+    div.domoContainer(style="left:100; top:100")
+        img(class="domoFace", src="/assets/img/domoface.jpeg", alt="domo face")
+        form.domoEdit(class="domoEditForm", name="domoEdit", action="/edit/#{domo.name}", method="POST")
+            label.domoLabel(for="name") Name:
+            input.domoInput(type="text", name="name", placeHolder="#{domo.name}")
+            label.domoLabel(for="age") Age:
+            input.domoInput(type="text", name="age", placeHolder="#{domo.age}")

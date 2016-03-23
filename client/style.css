@@ -264,3 +264,30 @@ h3.domoAge {
 .domo:last-child {
     margin-bottom:10px;
 }
+
+
+
+.domoContainer {
+    position: absolute;
+}
+
+.domoEditForm {
+    width: 150px;
+    position: absolute;
+    left: 85px;
+    top: -50px;
+    background-color: white;
+    border: 2px solid #55acee;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.domoInput {
+    display: block;
+    width: 100%;
+}
+
+.domoLabel {
+    display: block;
+    width: 100%;
+}
