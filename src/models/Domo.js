@@ -34,6 +34,16 @@ var DomoSchema = new mongoose.Schema({
         min: 0,
         required: true
     },
+    x: {
+        type: Number,
+        default: 150,
+        min: 0
+    },
+    y: {
+        type: Number,
+        default: 150,
+        min: 0
+    },
     owner: {
         type: mongoose.Schema.ObjectId,
         required: true,
@@ -53,7 +63,10 @@ var DomoSchema = new mongoose.Schema({
 DomoSchema.methods.toAPI = function() {
     return {
         name: this.name,
-        age: this.age
+        age: this.age,
+        x: this.x,
+        y: this.y,
+        _id: this._id 
     };
 };
 
@@ -69,7 +82,18 @@ DomoSchema.statics.findByOwner = function(ownerId, callback) {
     var search = {
         owner: mongoose.Types.ObjectId(ownerId)
     };
-    return DomoModel.find(search).select("name age").exec(callback);
+    return DomoModel.find(search).select("name age x y _id").exec(callback);
+};
+
+
+/**
+ * Find the Specific Domo with a given ID
+ */
+DomoSchema.statics.updateDomo = function(domoId, data, callback) {
+    var search = {
+        _id: domoId
+    };
+    return DomoModel.findOneAndUpdate(search, data).select("name age x y _id").exec(callback);
 };
 
 

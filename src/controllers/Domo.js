@@ -42,5 +42,28 @@ var makeDomo = function(req, res) {
 };
 
 
+/**
+ * This function edits an existing Domo Object
+ */
+var editDomo = function(req, res) {
+    console.log("Domo");
+    var domoData = {
+        name: req.body.name,
+        age: req.body.age,
+        x: req.body.xPos,
+        y: req.body.yPos,
+        owner: req.session.account._id
+    };
+    var editDomo = Domo.updateDomo(req.session.account._id, domoData, function(err) {
+       if (err) {
+           console.error(err);
+           return res.status(400).json({error: "An error occurred"});
+       }
+       res.json({redirect:"/maker"});
+    });
+};
+
+
 module.exports.makerPage = makerPage;
 module.exports.make = makeDomo;
+//module.exports.edit = editDomo;

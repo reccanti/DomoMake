@@ -1,11 +1,12 @@
 {
-  "name": "Logins",
+  "name": "logins",
   "version": "1.0.0",
   "description": "A Simple Login Example using Node.js, Mongo, Redis and PBKDF2",
   "main": "./src/app.js",
   "scripts": {
     "start": "node ./src/app.js",
     "pretest": "jshint ./src",
+    "debug": "DEBUG=express:* node ./src/app.js",
     "test": "echo \"Tests Complete\""
   },
   "keywords": [

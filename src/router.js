@@ -28,6 +28,10 @@ var router = function(app) {
     app.post("/maker", 
         mid.requiresLogin,
         controllers.Domo.make);
+    app.post("/edit", function(req, res) {
+	    //console.log('body: ' + JSON.stringify(req.body));
+	    res.status(200).json(req.body);
+    });
     app.get("/", 
         mid.requiresSecure,
         mid.requiresLogout,

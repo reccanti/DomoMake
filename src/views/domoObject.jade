@@ -1,12 +1,13 @@
 mixin EditableDomo(domo)
-    div.domoContainer(style="left:100; top:100")
+    div.domoContainer(style="left: #{domo.x}; top:#{domo.y}")
         img(class="domoFace", src="/assets/img/domoface.jpeg", alt="domo face")
-        form.domoEdit(class="domoEditForm", name="domoEdit", action="/edit/#{domo.name}", method="POST")
+        form.domoEditForm(name="domoEdit", action="/edit", method="POST")
             label.domoLabel(for="name") Name:
             input.domoInput(type="text", name="name", placeHolder="#{domo.name}")
             label.domoLabel(for="age") Age:
             input.domoInput(type="text", name="age", placeHolder="#{domo.age}")
             label.domoLabel(for="xPos") X:
-            input.domoInput(type="text", name="xPos", placeHolder="0")
+            input.domoInput(type="text", name="xPos", placeHolder="#{domo.x}")
             label.domoLabel(for="yPos") Y:
-            input.domoInput(type="text", name="yPos", placeHolder="0")
+            input.domoInput(type="text", name="yPos", placeHolder="#{domo.y}")
+            a.domoEditSubmit(href="#") Edit Domo
