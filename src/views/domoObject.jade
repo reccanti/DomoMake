@@ -10,4 +10,6 @@ mixin EditableDomo(domo)
             input.domoInput(type="text", name="xPos", placeHolder="#{domo.x}")
             label.domoLabel(for="yPos") Y:
             input.domoInput(type="text", name="yPos", placeHolder="#{domo.y}")
+            input(type="hidden", name="_csrf", value="#{csrfToken}")
+            input(type="hidden", name="_id", value="#{domo._id}")
             a.domoEditSubmit(href="#") Edit Domo

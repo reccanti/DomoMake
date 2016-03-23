@@ -47,14 +47,28 @@ var makeDomo = function(req, res) {
  */
 var editDomo = function(req, res) {
     console.log("Domo");
-    var domoData = {
-        name: req.body.name,
-        age: req.body.age,
-        x: req.body.xPos,
-        y: req.body.yPos,
-        owner: req.session.account._id
-    };
-    var editDomo = Domo.updateDomo(req.session.account._id, domoData, function(err) {
+//     var domoData = {
+//         name: req.body.name,
+//         age: req.body.age,
+//         x: req.body.xPos,
+//         y: req.body.yPos,
+//         owner: req.session.account._id
+//     };
+    var domoData = {};
+    if (req.body.name) {
+        domoData.name = req.body.name;
+    }
+    if (req.body.age) {
+        domoData.age = req.body.age;
+    }    
+    if (req.body.xPos) {
+        domoData.x = req.body.xPos;
+    }    
+    if (req.body.yPos) {
+        domoData.y = req.body.yPos;
+    }
+    console.log(domoData);
+    var editDomo = Domo.DomoModel.updateDomo(req.body._id, domoData, function(err) {
        if (err) {
            console.error(err);
            return res.status(400).json({error: "An error occurred"});
@@ -66,4 +80,4 @@ var editDomo = function(req, res) {
 
 module.exports.makerPage = makerPage;
 module.exports.make = makeDomo;
-//module.exports.edit = editDomo;
+module.exports.edit = editDomo;

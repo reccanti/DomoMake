@@ -39,11 +39,12 @@ $(document).ready(function() {
             handleError("RAWR! All fields are required");
             return false;
         }
-
+        //console.log($('#domoForm').serialize());
         sendAjax($("#domoForm").attr("action"), $("#domoForm").serialize());
         
         return false;
     });
+    
     
     $(".domoEditSubmit").on("click", function(e) {
         e.preventDefault();
@@ -52,7 +53,7 @@ $(document).ready(function() {
             $(form).attr("action"),
             $(form).serialize()
         );
-        console.log(e.target.parentElement);
+        return false;
     });
     
     // $(".domoEditForm").on("submit", function(e) {
